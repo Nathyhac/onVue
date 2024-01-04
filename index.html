@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue</title>
+
+    <style>
+      .box-one {
+        background-color: aqua;
+        height: 200px;
+        width: 200px;
+      }
+      .box-two {
+        background-color: rgb(202, 222, 161);
+        height: 200px;
+        width: 200px;
+      }
+      .box-three {
+        background-color: rgb(189, 23, 43);
+        height: 200px;
+        width: 200px;
+      }
+      [v-cloak] {
+        display: none;
+      }
+      input {
+        display: block;
+        margin: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <div id="app" v-cloak>
+      <login-form class="login-form" />
+      <input @keyup.enter="greet" v-model="greeting" />
+
+      <hr />
+      <hr />
+      <button @click="isVisible= !isVisible">show the box</button>
+      <div v-if="isVisible" class="box-one"></div>
+    </div>
+
+    <script>
+      let app = Vue.createApp({
+        data: function () {
+          return {
+            greeting: "vue is nice",
+            isVisible: false,
+          };
+        },
+        methods: {
+          showbox() {
+            this.isVisible = !this.isVisible;
+          },
+          greet() {
+            this.greeting = "hello";
+          },
+        },
+      });
+
+      app.component("login-form", {
+        template: `
+        <div class="login-form">
+        Email: <input type="email" placeholder="email"/>
+        Password: <input type="password"  placeholder="password"/>
+        </div>
+        `,
+      });
+      app.mount("#app");
+    </script>
+  </body>
+</html>
